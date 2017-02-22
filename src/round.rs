@@ -1,13 +1,23 @@
-use core::intrinsics::{roundf32, roundf64};
+use core::intrinsics::{
+    floorf32, floorf64,
+    ceilf32, ceilf64,
+    roundf32, roundf64
+};
 
 
 pub trait Round {
+    fn floor(self) -> Self;
+    fn ceil(self) -> Self;
     fn round(self) -> Self;
 }
 
 macro_rules! trait_round {
     ($t:ident) => (
         impl Round for $t {
+            #[inline(always)]
+            fn floor(self) -> $t { self }
+            #[inline(always)]
+            fn ceil(self) -> $t { self }
             #[inline(always)]
             fn round(self) -> $t { self }
         }
@@ -28,9 +38,17 @@ trait_round!(i64);
 
 impl Round for f32 {
     #[inline(always)]
+    fn floor(self) -> f32 { unsafe { floorf32(self) } }
+    #[inline(always)]
+    fn ceil(self) -> f32 { unsafe { ceilf32(self) } }
+    #[inline(always)]
     fn round(self) -> f32 { unsafe { roundf32(self) } }
 }
 impl Round for f64 {
+    #[inline(always)]
+    fn floor(self) -> f64 { unsafe { floorf64(self) } }
+    #[inline(always)]
+    fn ceil(self) -> f64 { unsafe { ceilf64(self) } }
     #[inline(always)]
     fn round(self) -> f64 { unsafe { roundf64(self) } }
 }
