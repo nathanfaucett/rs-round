@@ -60,10 +60,15 @@ fn test_round() {
     assert_eq!((-1.2f32).round(), -1f32);
     assert_eq!((-1.8f32).round(), -2f32);
 
-    assert_eq!((1.2f64).round(), 1f64);
-    assert_eq!((1.8f64).round(), 2f64);
-    assert_eq!((-1.2f64).round(), -1f64);
-    assert_eq!((-1.8f64).round(), -2f64);
+    assert_eq!((1.2f32).floor(), 1f32);
+    assert_eq!((1.8f32).floor(), 1f32);
+    assert_eq!((-1.2f32).floor(), -2f32);
+    assert_eq!((-1.8f32).floor(), -2f32);
+
+    assert_eq!((1.2f32).ceil(), 2f32);
+    assert_eq!((1.8f32).ceil(), 2f32);
+    assert_eq!((-1.2f32).ceil(), -1f32);
+    assert_eq!((-1.8f32).ceil(), -1f32);
 
     assert_eq!((2).round(), 2);
 }
